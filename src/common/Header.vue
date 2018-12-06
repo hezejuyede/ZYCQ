@@ -104,6 +104,7 @@
     }
 </script>
 <style scoped lang="less" rel="stylesheet/less">
+    @import "../assets/less/base";
     .header {
         position: relative;
         box-sizing: border-box;
@@ -111,15 +112,16 @@
         height: 70px;
         font-size: 22px;
         color: #fff;
+        background-color: rgba(56,65,87,1);
         .collapse-btn {
             float: left;
-            padding: 0 21px;
+            padding: 0 10px;
             cursor: pointer;
             line-height: 70px;
         }
         .logo {
             float: left;
-            width: 250px;
+            width: 200px;
             line-height: 70px;
         }
         .header-right {

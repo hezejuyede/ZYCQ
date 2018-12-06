@@ -116,14 +116,29 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="less" rel="stylesheet/less">
+    @import "../assets/less/base";
+
     .sidebar {
         display: block;
         position: absolute;
         left: 0;
         top: 70px;
+        line-height: 70px;
         bottom: 0;
         overflow-y: scroll;
+        ul {
+            height: 100%;
+        }
+        i {
+
+            font-size: 250%;
+            margin-right: 30px;
+        }
+        span {
+            font-size: @font-size-medium-x;
+        }
+
     }
 
     .sidebar::-webkit-scrollbar {
@@ -134,7 +149,4 @@
         width: 250px;
     }
 
-    .sidebar > ul {
-        height: 100%;
-    }
 </style>
