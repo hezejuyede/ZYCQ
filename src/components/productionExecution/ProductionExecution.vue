@@ -42,6 +42,7 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
+    import axios from 'axios'
 
     export default {
         name: 'ProductionExecution',
@@ -96,37 +97,38 @@
 
                 }
             },
+            //离开岗位
             LeavePost() {
-                const h = this.$createElement;
-                this.$msgbox({
-                    title: '提示',
-                    message: h('p', null, [
-                        h('span', null, '是否确定离岗 ')
-                    ]),
-                    showCancelButton: true,
+                this.$confirm('是否确认离开岗位?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
-                    beforeClose: (action, instance, done) => {
-                        if (action === 'confirm') {
-                            instance.confirmButtonLoading = true;
-                            instance.confirmButtonText = '执行中...';
-                            setTimeout(() => {
-                                done();
-                                setTimeout(() => {
-                                    instance.confirmButtonLoading = false;
-                                }, 300);
-                            }, 3000);
-                        } else {
-                            done();
-                        }
-                    }
+                    type: 'warning'
                 })
-                    .then(action => {
-                    this.$message({
-                        type: 'info',
-                        message: 'action: ' + action
+                    .then(() => {
+                        axios.get("/api/LeavePost").then((res) => {
+                            if (res.data === "1") {
+                                this.$message({
+                                    type: 'success',
+                                    message: '离岗成功!'
+                                });
+                                localStorage.removeItem("userName");
+                                this.$router.push("/ProductionExecutionLogin");
+                            }
+                            else {
+                                this.$message({
+                                    type: 'warning',
+                                    message: '离岗失败!'
+                                });
+                            }
+                        })
+                            .catch(console.log(err));
+                    })
+                    .catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消离岗'
+                        });
                     });
-                });
 
             },
             //前往那个一个页面
